@@ -1,6 +1,5 @@
 //@ts-check
 import fs from "fs/promises";
-import process from "process";
 import path from "path";
 /**
  * @param {string} str
@@ -19,7 +18,7 @@ function andrank(path,text, kwds) {
 		const matches = Array.from(text.matchAll(kw));
 		return { keyword: kw, index: matches.map((a) => a.index) };
 	});
-	if (Math.min(...counts.map((a) => a.index.length))) {
+	if (counts.every(c => c.index.length > 0)) {
 		return {
 			path: path,
 			rank: counts
