@@ -12,13 +12,13 @@ function escapeRegExp(str) {
  * @param {string} text
  * @param {RegExp[]} kwds
  */
-function andrank(path,text, kwds) {
+function calcRank(path, text, kwds) {
 	const lines = text.split("\n");
 	const counts = kwds.map((kw) => {
 		const matches = Array.from(text.matchAll(kw));
 		return { keyword: kw, index: matches.map((a) => a.index) };
 	});
-	if (counts.every(c => c.index.length > 0)) {
+	if (counts.every((c) => c.index.length > 0)) {
 		return {
 			path: path,
 			rank: counts
@@ -54,9 +54,9 @@ function andrank(path,text, kwds) {
  * @param {string} namepattern
  * @param {string[]} kwds
  */
-export default async function search(searchpath, namepattern, kwds) {
+export async function searchDir(searchpath, namepattern, kwds) {
 	const regexes = kwds.map((kw) => new RegExp(escapeRegExp(kw), "ig"));
-	const namep = new RegExp(namepattern)
+	const namep = new RegExp(namepattern);
 	const dir = await fs.readdir(searchpath, {
 		withFileTypes: true,
 		recursive: true,
@@ -67,7 +67,7 @@ export default async function search(searchpath, namepattern, kwds) {
 				const elempath = path.join(element.parentPath, element.name);
 				if (namep.test(path.basename(elempath))) {
 					const data = (await fs.readFile(elempath)).toString();
-					const ar = andrank(elempath, data, regexes);
+					const ar = calcRank(elempath, data, regexes);
 					return ar ? [ar] : [];
 				} else {
 					return [];
@@ -75,5 +75,17 @@ export default async function search(searchpath, namepattern, kwds) {
 			})
 		)
 	).flat();
+	return results.sort((a, b) => a.rank - b.rank);
+}
+/**
+ * @param {{title:string;text:string;}[]} data
+ * @param {string[]} kwds
+ */
+export function searchData(data, kwds) {
+	const regexes = kwds.map((kw) => new RegExp(escapeRegExp(kw), "ig"));
+	const results = data.flatMap((elem) => {
+		const ar = calcRank(elem.title, elem.text, regexes);
+		return ar ? [ar] : [];
+	});
 	return results.sort((a, b) => a.rank - b.rank);
 }

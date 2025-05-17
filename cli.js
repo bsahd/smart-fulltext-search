@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 //@ts-check
-import search from "./index.js";
+import {searchDir} from "./index.js";
 const starttime = Date.now();
-const result = await search(
+const result = await searchDir(
 	process.argv[2],
 	process.argv[3],
 	process.argv.slice(4)
