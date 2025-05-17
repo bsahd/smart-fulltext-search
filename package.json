@@ -1,6 +1,6 @@
 {
 	"name": "@bsahd/sgrep",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Smart full-text search Library/CLI with keyword proximity ranking",
 	"main": "index.js",
 	"scripts": {
