@@ -1,0 +1,21 @@
+{
+	"name": "@bsahd/sgrep",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"bin": {
+		"sgrep": "cli.js"
+	},
+	"keywords": [],
+	"author": "bsahd",
+	"license": "MIT",
+	"packageManager": "pnpm@10.10.0",
+	"type": "module",
+  "publishConfig": {
+		"registry": "https://npm.pkg.github.com",
+		"access": "public"
+	}
+}
