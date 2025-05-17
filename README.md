@@ -1,4 +1,4 @@
-# CLI / Library for smart fulltext search
+# Smart full-text search Library/CLI with keyword proximity ranking
 # CLI Usage
 ```sh
 $ npx @bsahd/sgrep@latest <path to directory> <file name pattern regex> <keywords...>
