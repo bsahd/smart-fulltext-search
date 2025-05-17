@@ -1,5 +1,5 @@
 //@ts-check
-import { searchData } from "./useworker.js";
+import { initData } from "./useworker.js";
 import fs from "fs";
 import path from "path";
 /**
@@ -19,13 +19,15 @@ export async function getDirData(searchpath) {
 	);
 	return results;
 }
-await searchData([], [""]);
 let starttime = Date.now();
 const data = await getDirData(process.argv[2]);
 console.log(Date.now() - starttime + "ms");
 starttime = Date.now();
-let result = await searchData(data, process.argv.slice(4));
+let search = await initData(data);
 console.log(Date.now() - starttime + "ms");
 starttime = Date.now();
-result = await searchData(data, process.argv.slice(4));
-console.log(Date.now() - starttime + "ms");
+while (true) {
+	starttime = Date.now();
+	let result = await search(process.argv.slice(4));
+	console.log(Date.now() - starttime + "ms");
+}

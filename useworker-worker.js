@@ -50,12 +50,11 @@ function calcRank(path, text, kwds) {
 }
 
 /**
- * @param {{title:string;text:string;}[]} data
  * @param {string[]} kwds
  */
-export function searchData(data, kwds) {
+export function searchData(kwds) {
   const regexes = kwds.map((kw) => new RegExp(escapeRegExp(kw), "ig"));
-  const results = data.flatMap((elem) => {
+  const results = dataForSearch.flatMap((elem) => {
     const ar = calcRank(elem.title, elem.text, regexes);
     return ar ? [ar] : [];
   });
@@ -63,6 +62,12 @@ export function searchData(data, kwds) {
 }
 
 import { parentPort } from "worker_threads";
-parentPort?.on("message",([data,kwds])=>{
-  parentPort?.postMessage(searchData(data,kwds));
+/** @type {{title:string;text:string;}[]} */
+let dataForSearch = []
+parentPort?.on("message",([method,args])=>{
+  if(method==="init"){
+    dataForSearch=args
+  }else if(method==="search"){
+    parentPort?.postMessage(searchData(args));
+  }
 })
