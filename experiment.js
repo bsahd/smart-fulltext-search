@@ -15,7 +15,7 @@ export async function getDirData(searchpath) {
 				const elempath = path.join(element.parentPath, element.name);
 				const text = (await fs.promises.readFile(elempath)).toString();
 				return { text, title: elempath };
-			})
+			}),
 	);
 	return results;
 }

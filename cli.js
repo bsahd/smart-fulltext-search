@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 //@ts-check
-import {searchDir} from "./index.js";
+import { searchDir } from "./index.js";
 const starttime = Date.now();
 const result = await searchDir(
 	process.argv[2],
 	process.argv[3],
-	process.argv.slice(4)
+	process.argv.slice(4),
 );
 console.log(Date.now() - starttime + "ms");
 for (const element of result) {

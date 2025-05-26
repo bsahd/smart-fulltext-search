@@ -1,6 +1,6 @@
 //@ts-check
-import fs from "fs/promises";
-import path from "path";
+import fs from "node:fs/promises";
+import path from "node:path";
 /**
  * @param {string} str
  */
@@ -32,12 +32,12 @@ function calcRank(path, text, kwds) {
 										distance: Math.min(
 											...kwda.index
 												.flatMap((a) => kwdb.index.map((b) => a - b))
-												.map((a) => Math.abs(a))
+												.map((a) => Math.abs(a)),
 										),
 									},
-							  ]
-							: []
-					)
+								]
+							: [],
+					),
 				)
 				.reduce((total, pair) => total + pair.distance, 0),
 			lines: lines.map((a) => ({
@@ -72,7 +72,7 @@ export async function searchDir(searchpath, namepattern, kwds) {
 				} else {
 					return [];
 				}
-			})
+			}),
 		)
 	).flat();
 	return results.sort((a, b) => a.rank - b.rank);

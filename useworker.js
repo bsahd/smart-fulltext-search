@@ -25,10 +25,14 @@ export async function initData(data) {
 			await sleep(20);
 		}
 		workerInUse = true;
-		const retdata = (await Promise.all(workers.map((worker) => {
-			worker.postMessage(["search", kwds]);
-			return new Promise((a) => worker.once("message", (b) => a(b)));
-		}))).flat();
+		const retdata = (
+			await Promise.all(
+				workers.map((worker) => {
+					worker.postMessage(["search", kwds]);
+					return new Promise((a) => worker.once("message", (b) => a(b)));
+				}),
+			)
+		).flat();
 		workerInUse = false;
 		return retdata;
 	};
