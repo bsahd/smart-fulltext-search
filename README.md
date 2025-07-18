@@ -19,9 +19,6 @@ if you're using pnpm/yarn/deno, please replace `npx @bsahd/sgrep@latest` with `p
 ```js
 import search from "@bsahd/sgrep";
 
-const results = await search("/path/to/dir", "^.+\\.md$", [
-	"keyword1",
-	"keyword2",
-]);
+const results = await search("/path/to/dir", "^.+\\.md$", ["keyword1", "keyword2"]);
 console.log(results);
 ```

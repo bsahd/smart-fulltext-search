@@ -1,6 +1,6 @@
 {
-	"name": "@bsahd/sgrep",
-	"version": "2.0.2",
-	"description": "Smart full-text search Library/CLI with keyword proximity ranking",
-	"exports": "./deno-entrypoint.js"
+  "name": "@bsahd/sgrep",
+  "version": "2.0.2",
+  "description": "Smart full-text search Library/CLI with keyword proximity ranking",
+  "exports": "./deno-entrypoint.js"
 }
